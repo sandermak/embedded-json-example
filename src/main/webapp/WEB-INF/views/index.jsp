@@ -3,5 +3,20 @@
 <h1><s:message code="view.index.title" /></h1>
 
 <p>
-	Click <a href='<s:url value="user"></s:url>'>here</a> to navigate to the restricted area. Username: <strong>user</strong>, password: <strong>demo</strong>.
+	<table>
+	    <thead>
+	        <tr>
+	            <th>Product</th>
+	            <th>Description</th>
+	            <th>Price</th>
+	        </tr>
+	    </thead>
+	<c:forEach var="product" items="${products}">
+	    <tr>
+	        <td><c:out value="${product.name}" /></td>
+	        <td><c:out value="${product.description}" /></td>
+	        <td><c:out value="${product.price}" /></td>
+	    </tr>
+	</c:forEach>
+	</table>
 </p>

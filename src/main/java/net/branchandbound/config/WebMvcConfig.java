@@ -21,7 +21,6 @@ import org.springframework.web.servlet.view.tiles2.TilesViewResolver;
 
 @Configuration
 @ComponentScan(basePackages = { "net.branchandbound.web" })
-@ImportResource("classpath:spring-global-method-security.xml")
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 	
 	private static final String MESSAGE_SOURCE = "/WEB-INF/i18n/messages";
@@ -75,23 +74,5 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
-	
-	@Override
-	protected void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-		argumentResolvers.add(new UserDetailsHandlerMethodArgumentResolver());
-	}
-	
-	// custom argument resolver inner classes
 
-	private static class UserDetailsHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
-
-		public boolean supportsParameter(MethodParameter parameter) {
-			return UserDetails.class.isAssignableFrom(parameter.getParameterType());
-		}
-
-		public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer modelAndViewContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-			Authentication auth = (Authentication) webRequest.getUserPrincipal();
-			return auth != null && auth.getPrincipal() instanceof UserDetails ? auth.getPrincipal() : null;
-		}
-	}
 }
