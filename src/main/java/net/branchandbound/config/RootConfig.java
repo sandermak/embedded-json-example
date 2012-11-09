@@ -8,11 +8,4 @@ import org.springframework.core.io.ClassPathResource;
 @ComponentScan(basePackages = { "net.branchandbound.product" })
 public class RootConfig {
 	
-	@Bean
-	public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
-		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
-		ppc.setLocation(new ClassPathResource("/example.properties"));
-		return ppc;
-	}
-	
 }
