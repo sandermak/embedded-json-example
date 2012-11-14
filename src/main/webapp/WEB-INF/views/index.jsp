@@ -29,7 +29,7 @@
     <c:if test="${pageIndices.size() > 1}">
         <div id="paging">
             <c:forEach var="pageIndex" items="${pageIndices}">
-                <a href="#" class="pagingLink"><c:out value="${pageIndex}" /></a>
+                <a href="?page=<c:out value="${pageIndex}" />" class="pagingLink"><c:out value="${pageIndex}" /></a>
             </c:forEach>
         </div>
     </c:if>

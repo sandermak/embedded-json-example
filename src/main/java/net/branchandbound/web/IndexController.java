@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.awt.print.PageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +23,14 @@ public class IndexController {
     private ProductService productService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(Model model) {
+	public String index(@RequestParam(required = false) Integer page, Model model) {
+        page = page == null ? 1 : page;
         List<Integer> pageStartIndices = new ArrayList<Integer>();
-        int nrOfPages = (int)Math.ceil(((double)productService.getTotalNumberOfProducts()) / PAGE_SIZE);
+        int nrOfPages = (int)Math.ceil(((double) productService.getTotalNumberOfProducts()) / PAGE_SIZE);
         for(int i = 1; i <= nrOfPages; i++)
             pageStartIndices.add(i);
 
-        model.addAttribute("products", productService.getProducts(1, PAGE_SIZE));
+        model.addAttribute("products", productService.getProducts(page, PAGE_SIZE));
         model.addAttribute("pageIndices", pageStartIndices);
         model.addAttribute("pageSize", PAGE_SIZE);
 		return "index";

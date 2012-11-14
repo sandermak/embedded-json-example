@@ -22,7 +22,6 @@ public class ProductController {
     @RequestMapping(method = RequestMethod.GET, value = "list", produces = "application/json")
     @ResponseBody
     public List<Product> getProducts(@RequestParam int page, @RequestParam int pageSize) {
-        int startIndex = 1 + (page - 1) * pageSize;
-        return productService.getProducts(startIndex, pageSize);
+        return productService.getProducts(page, pageSize);
     }
 }
