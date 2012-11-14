@@ -27,9 +27,7 @@ public class IndexController {
         for(int i = 1; i <= nrOfPages; i++)
             pageStartIndices.add(i);
 
-        model.addAttribute("products", productService.getProducts(1, PAGE_SIZE));
         model.addAttribute("pageIndices", pageStartIndices);
-        model.addAttribute("pageSize", PAGE_SIZE);
 		return "index";
 	}
 }
