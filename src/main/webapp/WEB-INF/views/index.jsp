@@ -8,31 +8,36 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js" />"></script>
     <script>
-        // Fetch products using Ajx call and update html.
+        var initialProducts = ${productJSON};
+
+        // Fetch products using Ajax call and update html.
         function getProducts(page, pageSize) {
             $.ajax({
             url: 'api/product/list?page=' + page + '&pageSize=' + pageSize,
             success: function (data) {
                 console.log("Successful product Ajax call with data:");
                 console.log(data);
-                var productTable = $('#productTable');
-                productTable.empty();
-                $.each(data, function(index, product) {
-                    productTable.append($('<tr><td>'+product.name+'</td><td>'+product.description+'</td><td>'+product.price+'</td></tr>'));
-                });
-
+                updateProducts(data);
             }
             });
         }
 
-        // On document.ready, initialize link handlers and fetch first products.
+        function updateProducts(products) {
+            var productTable = $('#productTable');
+            productTable.empty();
+            $.each(products, function(index, product) {
+                productTable.append($('<tr><td>'+product.name+'</td><td>'+product.description+'</td><td>'+product.price+'</td></tr>'));
+            });
+        }
+
+        // On document.ready, initialize link handlers and render first products.
         $(function () {
             $.each($('.pagingLink'), function(index, link) {
                 console.log('Updating click handler of link ' + link + ' at index ' + index);
                 $(link).click(function() { getProducts(index+1, 3);
               });
             });
-            getProducts(1,3);
+            updateProducts(initialProducts);
 
         });
     </script>
