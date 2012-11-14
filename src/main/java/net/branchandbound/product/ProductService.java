@@ -20,9 +20,9 @@ public class ProductService {
     /**
      * index is 1-based to correspond with the product naming
      */
-    public List<Product> getProducts(int start, int howmany) {
-
-        return productList.subList(start-1, start+howmany-1);
+    public List<Product> getProducts(int page, int howmany) {
+        int start = (page - 1) * howmany;
+        return productList.subList(start, Math.min(productList.size(), start+howmany));
     }
 
     public int getTotalNumberOfProducts() {

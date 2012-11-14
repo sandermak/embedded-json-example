@@ -6,6 +6,36 @@
 <head>
 	<title>Embedded JSON</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js" />"></script>
+    <script>
+        // Fetch products using Ajx call and update html.
+        function getProducts(page, pageSize) {
+            $.ajax({
+            url: 'api/product/list?page=' + page + '&pageSize=' + pageSize,
+            success: function (data) {
+                console.log("Successful product Ajax call with data:");
+                console.log(data);
+                var productTable = $('#productTable');
+                productTable.empty();
+                $.each(data, function(index, product) {
+                    productTable.append($('<tr><td>'+product.name+'</td><td>'+product.description+'</td><td>'+product.price+'</td></tr>'));
+                });
+
+            }
+            });
+        }
+
+        // On document.ready, initialize link handlers and fetch first products.
+        $(function () {
+            $.each($('.pagingLink'), function(index, link) {
+                console.log('Updating click handler of link ' + link + ' at index ' + index);
+                $(link).click(function() { getProducts(index+1, 3);
+              });
+            });
+            getProducts(1,3);
+
+        });
+    </script>
 </head>
 <body>
 <h1>Products</h1>
@@ -18,13 +48,7 @@
                 <th>Price</th>
             </tr>
         </thead>
-        <c:forEach var="product" items="${products}">
-            <tr>
-                <td><c:out value="${product.name}" /></td>
-                <td><em><c:out value="${product.description}" /></em></td>
-                <td><c:out value="${product.price}" /> Euro</td>
-            </tr>
-        </c:forEach>
+        <tbody id="productTable" />
     </table>
     <c:if test="${pageIndices.size() > 1}">
         <div id="paging">
