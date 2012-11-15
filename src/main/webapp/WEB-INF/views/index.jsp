@@ -8,7 +8,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <script type="text/javascript" src="<c:url value="/resources/js/jquery.min.js" />"></script>
     <script>
-        // Fetch products using Ajx call and update html.
+        // Fetch products using Ajax call and update html.
         function getProducts(page, pageSize) {
             // Use setTimeout to simulate high network latency
             setTimeout( function() {
@@ -19,6 +19,7 @@
                         console.log(data);
                         var productTable = $('#productTable');
                         productTable.empty();
+                        // Yes, you should probably use a decent JS templating system!
                         $.each(data, function(index, product) {
                             productTable.append($('<tr><td>'+product.name+'</td><td><em>'+product.description+'<em></td><td>'+product.price+'</td></tr>'));
                         });
@@ -31,8 +32,8 @@
         $(function () {
             $.each($('.pagingLink'), function(index, link) {
                 console.log('Updating click handler of link ' + link + ' at index ' + index);
-                $(link).click(function() { getProducts(index+1, 3);
-              });
+                // Yes, you should probably use a decent JS templating system!
+                $(link).click(function() { getProducts(index+1, 3); return false; });
             });
             getProducts(1,3);
 
