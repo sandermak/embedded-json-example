@@ -30,6 +30,7 @@
         function updateProducts(products) {
             var productTable = $('#productTable');
             productTable.empty();
+            // Yes, you should probably use a decent JS templating system!
             $.each(products, function(index, product) {
                 productTable.append($('<tr><td>'+product.name+'</td><td><em>'+product.description+'</em></td><td>'+product.price+'</td></tr>'));
             });
@@ -39,8 +40,7 @@
         $(function () {
             $.each($('.pagingLink'), function(index, link) {
                 console.log('Updating click handler of link ' + link + ' at index ' + index);
-                $(link).click(function() { getProducts(index+1, 3);
-              });
+                $(link).click(function() { getProducts(index+1, 3); return false; });
             });
             updateProducts(initialProducts);
 
