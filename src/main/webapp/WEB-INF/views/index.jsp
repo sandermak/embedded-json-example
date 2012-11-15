@@ -12,21 +12,24 @@
 
         // Fetch products using Ajax call and update html.
         function getProducts(page, pageSize) {
-            $.ajax({
-            url: 'api/product/list?page=' + page + '&pageSize=' + pageSize,
-            success: function (data) {
-                console.log("Successful product Ajax call with data:");
-                console.log(data);
-                updateProducts(data);
-            }
-            });
+            // Use setTimeout to simulate high network latency
+            setTimeout( function() {
+                $.ajax({
+                    url: 'api/product/list?page=' + page + '&pageSize=' + pageSize,
+                    success: function (data) {
+                        console.log("Successful product Ajax call with data:");
+                        console.log(data);
+                        updateProducts(data);
+                    }
+                })
+            }, 400);
         }
 
         function updateProducts(products) {
             var productTable = $('#productTable');
             productTable.empty();
             $.each(products, function(index, product) {
-                productTable.append($('<tr><td>'+product.name+'</td><td>'+product.description+'</td><td>'+product.price+'</td></tr>'));
+                productTable.append($('<tr><td>'+product.name+'</td><td><em>'+product.description+'</em></td><td>'+product.price+'</td></tr>'));
             });
         }
 
