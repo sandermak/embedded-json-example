@@ -10,19 +10,21 @@
     <script>
         // Fetch products using Ajx call and update html.
         function getProducts(page, pageSize) {
-            $.ajax({
-            url: 'api/product/list?page=' + page + '&pageSize=' + pageSize,
-            success: function (data) {
-                console.log("Successful product Ajax call with data:");
-                console.log(data);
-                var productTable = $('#productTable');
-                productTable.empty();
-                $.each(data, function(index, product) {
-                    productTable.append($('<tr><td>'+product.name+'</td><td>'+product.description+'</td><td>'+product.price+'</td></tr>'));
+            // Use setTimeout to simulate high network latency
+            setTimeout( function() {
+                $.ajax({
+                    url: 'api/product/list?page=' + page + '&pageSize=' + pageSize,
+                    success: function (data) {
+                        console.log("Successful product Ajax call with data:");
+                        console.log(data);
+                        var productTable = $('#productTable');
+                        productTable.empty();
+                        $.each(data, function(index, product) {
+                            productTable.append($('<tr><td>'+product.name+'</td><td><em>'+product.description+'<em></td><td>'+product.price+'</td></tr>'));
+                        });
+                    }
                 });
-
-            }
-            });
+            }, 400);
         }
 
         // On document.ready, initialize link handlers and fetch first products.
