@@ -18,7 +18,7 @@ public class ProductService {
     }
 
     /**
-     * paging is 1-based to correspond with the screen labels
+     * paging is 1-based to correspond with the screen
      */
     public List<Product> getProducts(int page, int howmany) {
         int start = (page - 1) * howmany;
