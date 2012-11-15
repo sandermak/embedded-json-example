@@ -6,11 +6,12 @@
 <head>
 	<title>Embedded JSON</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />" type="text/css"></link>
 </head>
 <body>
-<h1>Products</h1>
+<h2>Products</h2>
 <p>
-    <table>
+    <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>Product</th>
